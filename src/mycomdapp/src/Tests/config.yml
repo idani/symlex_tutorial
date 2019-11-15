@@ -1,0 +1,23 @@
+services:
+    sampler.reservoir:
+        class: Sampler\Sampler\ReservoirSampler
+
+    http.client:
+        class: Buzz\Client\Curl
+
+    input.stream:
+        class: Sampler\Input\StreamIterator
+        arguments:
+            - "%fixture.path%/stream.fix"
+
+    input.randomorg:
+        class: Sampler\Input\RandomOrgIterator
+        arguments:
+            - "@http.client"
+
+    input.randombyte:
+        class: Sampler\Input\RandomByteIterator
+
+    command.sample:
+        class: Sampler\Command\SampleCommand
+        arguments: [ 'sample', "@sampler.reservoir", "@http.client" ]

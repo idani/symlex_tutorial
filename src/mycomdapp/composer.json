@@ -1,0 +1,45 @@
+{
+  "name": "symlex/stream-sampler",
+  "description": "Example PHP command-line application based on Symlex Core",
+  "license": "MIT",
+  "type": "project",
+  "homepage": "https://github.com/symlex/stream-sampler",
+  "require": {
+    "php": ">=7.1",
+    "symlex/symlex-core": "^4.1",
+    "incenteev/composer-parameter-handler": "~2.0",
+    "kriswallsmith/buzz": "0.15"
+  },
+  "require-dev": {
+    "lastzero/test-tools": "^4.2.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Sampler\\": "src/"
+    }
+  },
+  "config": {
+    "bin-dir": "bin/"
+  },
+  "scripts": {
+    "post-composer-scripts": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "app/clearcache",
+      "composer dumpautoload -o"
+    ],
+    "post-install-cmd": [
+      "@post-composer-scripts"
+    ],
+    "post-update-cmd": [
+      "@post-composer-scripts"
+    ]
+  },
+  "extra": {
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml",
+      "dist-file": "app/config/parameters.dist.yml"
+    }
+  }
+}
